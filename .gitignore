@@ -1,22 +1,47 @@
-# Binaries for programs and plugins
-*.exe
-*.exe~
+# # Binaries for programs and plugins
+# *.exe
+# *.exe~
+*
+!*/
 *.dll
 *.so
 *.dylib
 *.db
 *.a
 *.dat
+*.pyc
 # Test binary, build with `go test -c`
 *.test
 # debug binary,
 debug
 dlv
 
-# Output of the go coverage tool, specifically when used with LiteIDE
-*.out
-
-# VS Code IDE
+# # Output of the go coverage tool, specifically when used with LiteIDE
+# *.out
+vendor/*
+# # VS Code IDE
 .vscode
+.idea
 launch.json
 settings.json 
+tasks.json
+*.s
+
+*/src/github.com/
+*/src/golang.org/
+
+tempCodeRunnerFile.*
+
+!*.go
+!*.sh
+!*.py
+!*.c
+!*.cpp
+!*.java
+!*.xml
+!*.proto
+!*.ini
+!*.yaml
+!*.csv
+!.
+
