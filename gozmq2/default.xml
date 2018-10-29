@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<switch version="1.0">
+
+    <sender>
+        <endpoint>tcp://127.0.0.1:23200</endpoint>
+        <high_water_mark>200000</high_water_mark>
+    </sender>
+
+    <sender>
+        <endpoint>tcp://127.0.0.1:23201</endpoint>
+        <high_water_mark>200000</high_water_mark>
+    </sender>
+
+    <sender>
+        <endpoint>tcp://127.0.0.1:23202</endpoint>
+        <high_water_mark>200000</high_water_mark>
+    </sender>
+
+    <sender>
+        <endpoint>tcp://127.0.0.1:23203</endpoint>
+        <high_water_mark>200000</high_water_mark>
+    </sender>
+
+    <sender>
+        <endpoint>tcp://127.0.0.1:23204</endpoint>
+        <high_water_mark>200000</high_water_mark>
+    </sender>
+
+    <sender>
+        <endpoint>tcp://127.0.0.1:23205</endpoint>
+        <high_water_mark>200000</high_water_mark>
+    </sender>
+
+    <sender>
+        <endpoint>tcp://127.0.0.1:23206</endpoint>
+        <high_water_mark>200000</high_water_mark>
+    </sender>
+
+    <sender>
+        <endpoint>tcp://127.0.0.1:23207</endpoint>
+        <high_water_mark>200000</high_water_mark>
+    </sender>
+    <high_water_mark>100000</high_water_mark>
+
+
+</switch>

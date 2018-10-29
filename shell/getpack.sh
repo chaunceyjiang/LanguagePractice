@@ -1,0 +1,9 @@
+#!/bin/bash
+for i in {0..11}
+do
+echo "$i"
+scp root@192.168.1.24:/opt/cbms/var/store/btr/app1/intf3/20181022/20181022152300_20181022152300_"$i".btr.pack ~/Desktop/tmp/
+done
+
+请求：{"status":"--","MetaType":1,"CnccMesgRefID":"96958500100100423817","Prot":"xml","PktLen":1348,"DecodeId":1825566008,"RRB":"req","FlowId":"847275014792286226:-6171046518741532671:0","PktId":1026428,"CnccMesgID":"96958500100100423817","StreamId":1,"SrcIp":"11.194.32.35","FlowSide":0,"DestPort":2531,"sys_type":"HVPS","TcpPldLen":1282,"ret_code":null,"SrcPort":43612,"ts":1540275363.5508301,"RRA":"req","IpProt":6,"TcpAck":1968395026,"CnccOrigReceiverSID":"HVPS","CnccMesgType":"hvps.111.001.01 ","DestIp":"11.194.16.18","sub_trans_type":"hvps","PartId":0,"prtry1":"A113","MsgId":"2018090600214126","TxId":"2018090600214126","mesgtype":"hvps.111","transaction_id":"2018090600214126","trans_type":"跨境支付","transactionId":"2018090600214126","TcpSeq":3655439540}
+响应：{"status":"PR04","MetaType":1,"CnccMesgRefID":"HVPC5B76B09913505328","Prot":"xml","PktLen":334,"DecodeId":1825566008,"RRB":"resp","FlowId":"847257349591801891:-2921136437640298495:0","PktId":1078075,"CnccMesgID":"HVPC5B76B09913505328","StreamId":1,"SrcIp":"11.194.16.18","FlowSide":0,"DestPort":2531,"TcpPldLen":268,"ret_code":"PR04","SrcPort":55158,"ts":1540275390.662488,"RRA":"resp","PrcSts":"PR04","IpProt":6,"is_success":true,"sys_type":"HVPS","CnccOrigReceiverSID":"HVPS","CnccMesgType":"saps.604.001.01 ","DestIp":"11.194.32.35","OrgnlMsgId":"2018090600214126","PartId":6,"mesgtype":"saps.604","MsgId":"2018090681182782","sub_trans_type":"saps","TcpAck":864405954,"transaction_id":"2018090600214126","trans_type":null,"transactionId":"2018090681182782","TcpSeq":3753962175}
