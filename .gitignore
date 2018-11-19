@@ -43,5 +43,6 @@ tempCodeRunnerFile.*
 !*.ini
 !*.yaml
 !*.csv
-!.
+Blockchain/
+6.824/
 
