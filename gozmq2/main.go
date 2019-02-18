@@ -1,5 +1,7 @@
 package main
 
+import _ "golang.org/x/net"
+
 // func main() {
 // 	records := [][]string{
 // 		{"first_name", "last_name", "username"},
@@ -84,4 +86,4 @@ func main() {
 	}
 
 }
- */
+*/

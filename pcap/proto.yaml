@@ -1,0 +1,42 @@
+lookup:
+  trans_type:
+    record_field: Lookup
+    csv_field: code
+    file: trans_type.csv
+  trans_type_short:
+    record_field: lookup_short
+    csv_field: code
+    file: trans_type_short.csv
+normalize:
+  trans_type:
+  - trans_type
+  - trans_type_short
+  ret_code: RespCode
+  transaction_id: TransId
+  tstid: 'PanHash + ":" + F11'
+  prepare_lookup:
+    lookup_short: 'Lookup[:9]'
+transaction:
+  ends_with:
+  - 'RRA=resp'
+  starts_with:
+  - 'RRA=req'
+  max_span: 10
+trace:
+  fields:
+  - MsgType
+  - F3
+  - F25
+  - PanHash
+  link_field_tstid: tstid
+  critical_keyword: PAN
+obfuscate:
+  fields: PanHash
+basic:
+  display_name: CUPS
+  name: cups
+output:
+  is_success:
+  - 'ret_code=00'
+trace_disp:
+  PAN: 卡号

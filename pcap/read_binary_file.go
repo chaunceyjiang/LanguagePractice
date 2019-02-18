@@ -1,41 +1,36 @@
 package main
 
 import (
-	"bufio"
+	"bytes"
 	"encoding/binary"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"os"
 )
 
 var (
-	bashPath = "/home/chauncey/Desktop/shm"
-	recvFilename     = bashPath + "/" + "eth1_cmd_recv"
-	sendFilename     = bashPath + "/" + "eth1_cmd_send"
-	dataFilename     = bashPath + "/" + "eth1_data"
+	bashPath     = "/home/chauncey/Desktop/shm"
+	recvFilename = bashPath + "/" + "eth1_cmd_recv"
+	sendFilename = bashPath + "/" + "eth1_cmd_send"
+	dataFilename = bashPath + "/" + "eth1_data"
 )
 
 func main() {
 	recv_data, _ := ioutil.ReadFile(recvFilename)
 	send_data, _ := ioutil.ReadFile(sendFilename)
-	data,_:=os.Open(dataFilename)
-	second:=make([]byte,4)
-	y:=binary.BigEndian.Uint32(send_data[:4])
-	buf:=bufio.NewReader(data)
-	
-	buf.Discard(int(y))
-	buf.Read(second)
-	fmt.Println(second)
-	fmt.Println(buf.Size())
-	fmt.Println(recv_data)
+	//data, _ := ioutil.ReadFile(dataFilename)
+
+	bytesBuffer := bytes.NewBuffer(recv_data)
 	fmt.Println(send_data)
-
-	i:=binary.BigEndian.Uint32(recv_data[:4])
-
-	t:=binary.BigEndian.Uint32(second)
-	fmt.Println(i)
-	fmt.Println(y)
-	fmt.Println(t)
-
+	fmt.Println(recv_data)
+	var x int32
+	binary.Read(bytesBuffer, binary.LittleEndian, &x)
+	file,_:=os.Open(dataFilename)
+	file.Seek(int64(x), io.SeekCurrent)
+	var data []byte
+	file.Read(data)
+	fmt.Println(data)
+	fmt.Println(x)
 
 }
