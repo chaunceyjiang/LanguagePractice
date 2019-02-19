@@ -15,7 +15,7 @@ public class Leetcode {
 //        s.threeSum(ax);
 //        ArrayList<Integer> l = new ArrayList<Integer>(Arrays.asList(ax));
 //        System.out.println(s.threeSum(ax));
-        s.singleNumber(az);
+        s.reverse(2147483647);
         ListNode root = new ListNode(1);
         ListNode t = root;
         for (int i = 2; i < 5; i++) {
@@ -39,26 +39,40 @@ public class Leetcode {
         System.out.println(5^2^6^2^6);
         String x = Integer.toString(123445);
         String xx = new StringBuffer(x).reverse().toString();
-
+        int st =Integer.valueOf("2324");
     }
 }
 class Solution {
-    public int singleNumber(int[] nums) {
-        int result =0;
-        Map<Integer,Integer> m = new HashMap<>();
-        for (int i:nums){
-            m.put(i,m.getOrDefault(i,0)+1);
-        }
-        for(int k:m.keySet()){
-            if (m.get(k)==1){
-                result=k;
-                break;
-            }
-        }
+    public int reverse(int x) {
+        int rev = 0;
+        while (x!=0){
+            int pop = x%10;
+            x/=10;
+            if(rev>Integer.MAX_VALUE/10||(rev==Integer.MAX_VALUE/10 && pop>7))return 0;
+            if(rev<Integer.MIN_VALUE/10||(rev==Integer.MIN_VALUE/10 && pop<-8))return 0;
 
-        return result;
+            rev=rev*10 + pop;
+        }
+        return rev;
     }
 }
+//class Solution {
+//    public int singleNumber(int[] nums) {
+//        int result =0;
+//        Map<Integer,Integer> m = new HashMap<>();
+//        for (int i:nums){
+//            m.put(i,m.getOrDefault(i,0)+1);
+//        }
+//        for(int k:m.keySet()){
+//            if (m.get(k)==1){
+//                result=k;
+//                break;
+//            }
+//        }
+//
+//        return result;
+//    }
+//}
 //class Solution {
 //    private boolean exit = false;
 //    private int value;

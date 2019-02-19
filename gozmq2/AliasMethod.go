@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type AliasTable struct {
 	Prab  []float64
 	Alias []float64
@@ -20,7 +22,15 @@ func NewAliasTable(p []float64) *AliasTable {
 	return a
 }
 
+//
 func main() {
-	p := []float64{1 / 2.0, 1 / 4.0, 1 / 12.0, 1 / 12.0}
+	//	p := []float64{1 / 2.0, 1 / 4.0, 1 / 12.0, 1 / 12.0}
+	var i = 12321
+	var result = 0
+	for result < i {
+		pop := i % 10
 
+		result = result*10 + pop
+	}
+	fmt.Println(result, i)
 }
