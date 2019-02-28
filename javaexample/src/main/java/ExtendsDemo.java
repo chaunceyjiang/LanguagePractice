@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 //人类
 class Person {
     private String name;
@@ -41,6 +45,9 @@ class Student extends Person  {
     public Student(String name,int age) {	//"王宝强",18
         super(name,age); //"王宝强",18
     }
+    public void sleep(){
+        System.out.println("睡ss觉");
+    }
 }
 
 //老师类
@@ -64,7 +71,13 @@ class ExtendsDemo {
         s2.sleep();
         System.out.println("--------------------------");
 
-
+        Map<ArrayList,Person> m = new HashMap<>();
+        ArrayList l = new ArrayList();
+        l.add("1");
+        l.add(1);
+        m.put(l,s);
+        Student ss = (Student) m.get(l);
+        ss.sleep();
         //老师类
         Teacher t = new Teacher();
         t.setName("王祖蓝");

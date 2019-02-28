@@ -1,8 +1,13 @@
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Run {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, IOException {
 //        MyThread t = new MyThread("A");
 //        t.start();
 ////        Thread.sleep(1000);
@@ -21,6 +26,11 @@ public class Run {
         lock.unlock();
         lock.lockInterruptibly();
         lock.unlock();
-
+        System.out.println(File.separator);
+        System.out.println(String.join(File.separator,new File("").getCanonicalPath(),"src","main","resources"));
+        Map<String, ArrayList> result = new HashMap<String, ArrayList>();
+        ArrayList l = new ArrayList();
+        l.add("a");
+        result.put("a",l);
     }
 }
