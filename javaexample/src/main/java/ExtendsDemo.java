@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 //人类
 class Person {
@@ -72,12 +74,11 @@ class ExtendsDemo {
         System.out.println("--------------------------");
 
         Map<ArrayList,Person> m = new HashMap<>();
-        ArrayList l = new ArrayList();
+        List<String> l = new ArrayList();
         l.add("1");
-        l.add(1);
-        m.put(l,s);
-        Student ss = (Student) m.get(l);
-        ss.sleep();
+        l.add("1");
+        // m.put(l,s);
+
         //老师类
         Teacher t = new Teacher();
         t.setName("王祖蓝");
@@ -85,5 +86,14 @@ class ExtendsDemo {
         System.out.println(t.getName()+"---"+t.getAge());
         t.eat();
         t.sleep();
+
+        l.forEach(x -> {
+            if (x.equals(args[0])) {
+
+            }
+        });
+
+        List test = l.stream().filter(x -> x.equals(args[0])).collect(Collectors.toList());
+        System.out.println(test);
     }
 }
