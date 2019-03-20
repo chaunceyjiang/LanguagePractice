@@ -1,0 +1,41 @@
+
+<protocol id="tcp" baseProtocol="">
+	<property>
+		<attribute key="forceCheckPayload" value="true" type="Boolean"></attribute>
+	</property>
+	<recordField allItem="false" template="xpath">
+		<field item="/Document/*/TxInfAndSts/StsId">StsId</field>
+		<field item="/Document/*/NPCPrcInf/PrcSts">PrcSts</field>
+		<field item="/Document/*/RspnInf/PrcCd">PrcCd</field>
+		<field item="/Document/*/DscrdInf/PrcCd">PrcCd</field>
+		<field item="/Document/*/CdtTrfTxInf/PmtTpInf/*/Prtry">prtry1</field>
+		<field item="/Document/*/GrpHdr/MsgId">MsgId</field>
+		<field item="/Document/*/DscrdInf/MsgId">MsgId</field>
+		<field item="/Document/*/CdtTrfTxInf/PmtId/TxId">TxId</field>
+		<field item="/Document/*/OrgnlGrpHdr/OrgnlMsgId">OrgnlMsgId</field>
+		<field item="/Document/*/OrgnlGrpInfAndSts/OrgnlMsgId">OrgnlMsgId</field>
+		<field item="/Document/*/DscrdInf/MsgRefId">MsgRefId</field>
+		<field item="/Document/*/WdrwlRspnInf/OrgnlTxId">OrgnlTxId</field>
+		<field item="/Document/SysStsNtfctn/SysStsInf/OrgnlSysSts">org_status</field>
+		<field item="/Document/SysStsNtfctn/SysStsInf/CurSysSts">sys_status</field>
+	</recordField>
+</protocol>
+
+<protocol id="xml" baseProtocol="cncc 2g">
+	<recordField allItem="false" template="xpath">
+		<field item="/Document/*/TxInfAndSts/StsId">StsId</field>
+		<field item="/Document/*/NPCPrcInf/PrcSts">PrcSts</field>
+		<field item="/Document/*/RspnInf/PrcCd">PrcCd</field>
+		<field item="/Document/*/DscrdInf/PrcCd">PrcCd</field>
+		<field item="/Document/*/CdtTrfTxInf/PmtTpInf/*/Prtry">prtry1</field>
+		<field item="/Document/*/GrpHdr/MsgId">MsgId</field>
+		<field item="/Document/*/DscrdInf/MsgId">MsgId</field>
+		<field item="/Document/*/CdtTrfTxInf/PmtId/TxId">TxId</field>
+		<field item="/Document/*/OrgnlGrpHdr/OrgnlMsgId">OrgnlMsgId</field>
+		<field item="/Document/*/OrgnlGrpInfAndSts/OrgnlMsgId">OrgnlMsgId</field>
+		<field item="/Document/*/DscrdInf/MsgRefId">MsgRefId</field>
+		<field item="/Document/*/WdrwlRspnInf/OrgnlTxId">OrgnlTxId</field>
+		<field item="/Document/SysStsNtfctn/SysStsInf/OrgnlSysSts">org_status</field>
+		<field item="/Document/SysStsNtfctn/SysStsInf/CurSysSts">sys_status</field>
+	</recordField>
+</protocol>
