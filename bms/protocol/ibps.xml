@@ -1,0 +1,51 @@
+<protocol>
+    <basic>
+        <name>cnccibps</name>
+        <display_name>人行清算中心大额系统</display_name>
+    </basic>
+    <prepare>
+        <field op="as" value="30" type="int">max_span</field>
+        <field op="str_trim" item1="CnccMesgType">CnccMesgType</field>
+        <field op="str_trim" item1="CnccMesgType">RRB</field>
+        <field op="str_sub" start="0" end="8" item1="CnccMesgType">mesgtype</field>
+        <field op="str_sub" start="0" end="4" item1="CnccMesgType">sub_trans_type</field>
+        <field op="str_trim" item1="CnccMesgRefID">CnccMesgRefID</field>
+    </prepare>
+    <normalizes>
+        <normalize name="RRB">
+            <field op="lookup" file="mesgtype2rra.csv" item1="RRB" />
+        </normalize>
+        <normalize name="RRA">
+            <field op="as" item1="RRB" />
+        </normalize>
+        <normalize name="transaction_id">
+            <if op="in" item1="RRB" value="req,notify">
+                <field op="notNull" item1="MsgId" result="MsgId"/>
+                <field op="notNull" item1="CnccMesgID" result="CnccMesgID"/>
+                <field op="notNull" item1="FlowId" result="FlowId"/>
+            </if>
+            <else>
+                <field op="notNull" item1="OrgnlMsgId" result="OrgnlMsgId"/>
+                <field op="notNull" item1="CnccMesgRefID" result="CnccMesgRefID"/>
+                <field op="notNull" item1="FlowId" result="FlowId"/>
+            </else>
+        </normalize>
+
+        <normalize name="status">
+            <field op="lookup" file="trans_type.csv" item1="trans_type" />
+        </normalize>
+
+        <normalize name="trans_type">
+            <field op="lookup" file="status.csv" item1="status" />
+        </normalize>
+
+        <normalize name="starts_with">
+            <field op="eq" item1="RRA" value="req"/>
+            <field op="eq" item1="RRA" value="notify"/>
+        </normalize>
+        <normalize name="ends_with">
+            <field op="eq" item1="RRA" value="resp"/>
+            <field op="eq" item1="RRA" value="notify"/>
+        </normalize>
+    </normalizes>
+</protocol>
