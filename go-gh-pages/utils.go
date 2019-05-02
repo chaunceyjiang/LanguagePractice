@@ -69,6 +69,10 @@ func (g *Git) Rm(files []string) {
 	args = append(args, files...)
 	g.exec(args...)
 }
+
+func (g *Git) Fetch(remote string) {
+	g.exec("fetch",remote)
+}
 func (g Git) Checkout(remote, branch string) {
 	treeish := remote + "/" + branch
 	g.exec("ls-remote", "--exit-code", ".", treeish)
@@ -95,15 +99,15 @@ func (g *Git) getRemoteUrl(remote string) string {
 }
 
 func (g *Git) Clone(repo, dir, branch string, options Options) *Git {
-	g := NewGit()
-	g.Cwd = dir
-	g.Cmd = options.Cmd
-	if g.Cmd == "" {
-		g.Cmd = "git"
+	gg := NewGit()
+	gg.Cwd = dir
+	gg.Cmd = options.Cmd
+	if gg.Cmd == "" {
+		gg.Cmd = "git"
 	}
 
 	if exists(dir) {
-		return g
+		return gg
 	} else {
 		if err := os.MkdirAll(dir, 0777); err != nil {
 			log.Fatal(err)
@@ -124,7 +128,7 @@ func (g *Git) Clone(repo, dir, branch string, options Options) *Git {
 		if err != nil {
 			log.Fatal(err)
 		}
-		return g
+		return gg
 	}
 }
 
