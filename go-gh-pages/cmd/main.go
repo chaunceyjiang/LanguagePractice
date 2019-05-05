@@ -1,11 +1,17 @@
 package main
 
 import (
-	"fmt"
+	"github.com/labstack/gommon/log"
 	"go-gh-pages"
+	"os"
+	"os/exec"
+	"path/filepath"
 )
 func main() {
-	g:=go_gh_pages.NewGit()
-	fmt.Println(g)
+	_ = exec.Command("rm", "-rf", "/tmp/.cache").Run()
+	base, _ := filepath.Abs(filepath.Dir(os.Args[0]))
+	go_gh_pages.Publish(base,nil, func(err error) {
+		log.Error(err)
+	})
 
 }
