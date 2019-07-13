@@ -1,13 +1,20 @@
 import xmltodict
 import csv
-# csv.reader()
-# with open("cnccU_a.xml") as f:
-#     xml_format= "<dpxml>{}</dpxml>".format(f.read())
-#     x=xmltodict.parse(xml_format)
-#     print(x)
+# with open("msgtype.csv") as f:
+#     reader = csv.reader(f)
+#     print(list(reader)[1:])
+    # for line in reader:
+    #     print(line)
 
-x = {'@id': '1', '@baseProtocol': '', 'property': {'attribute': [{'@key': 'forceCheckPayload', '@value': 'a=wmq,b=http,c=dghk', '@type': 'Boolean'}]}, 'recordField': {'@allItem': 'false', '@template': 'xpath', 'field': [{'@item': '/Document/*/TxInfAndSts/StsId', '#text': 'StsId'}, {'@item': '/Document/*/NPCPrcInf/PrcSts', '#text': 'PrcSts'}, {'@item': '/Document/*/RspnInf/PrcCd', '#text': 'PrcCd'}, {'@item': '/Document/*/DscrdInf/PrcCd', '#text': 'PrcCd'}, {'@item': '/Document/*/CdtTrfTxInf/PmtTpInf/*/Prtry', '#text': 'prtry1'}, {'@item': '/Document/*/GrpHdr/MsgId', '#text': 'MsgId'}, {'@item': '/Document/*/DscrdInf/MsgId', '#text': 'MsgId'}, {'@item': '/Document/*/CdtTrfTxInf/PmtId/TxId', '#text': 'TxId'}, {'@item': '/Document/*/OrgnlGrpHdr/OrgnlMsgId', '#text': 'OrgnlMsgId'}, {'@item': '/Document/*/OrgnlGrpInfAndSts/OrgnlMsgId', '#text': 'OrgnlMsgId'}, {'@item': '/Document/*/DscrdInf/MsgRefId', '#text': 'MsgRefId'}, {'@item': '/Document/*/WdrwlRspnInf/OrgnlTxId', '#text': 'OrgnlTxId'}, {'@item': '/Document/SysStsNtfctn/SysStsInf/OrgnlSysSts', '#text': 'org_status'}, {'@item': '/Document/SysStsNtfctn/SysStsInf/CurSysSts', '#text': 'sys_status'}]}}
-print(xmltodict.unparse({"protocol":x}))
+with open("cnccU_a.xml") as f:
+    xml_format= "<dpxml>{}</dpxml>".format(f.read())
+    x=xmltodict.parse(xml_format)
+    with open("cnccu_b.xml","w+") as ff:
+        ff.write(xmltodict.unparse(x))
+    print(x)
+
+# x = {'@id': '1', '@baseProtocol': '', 'property': {'attribute': [{'@key': 'forceCheckPayload', '@value': 'a=wmq,b=http,c=dghk', '@type': 'Boolean'}]}, 'recordField': {'@allItem': 'false', '@template': 'xpath', 'field': [{'@item': '/Document/*/TxInfAndSts/StsId', '#text': 'StsId'}, {'@item': '/Document/*/NPCPrcInf/PrcSts', '#text': 'PrcSts'}, {'@item': '/Document/*/RspnInf/PrcCd', '#text': 'PrcCd'}, {'@item': '/Document/*/DscrdInf/PrcCd', '#text': 'PrcCd'}, {'@item': '/Document/*/CdtTrfTxInf/PmtTpInf/*/Prtry', '#text': 'prtry1'}, {'@item': '/Document/*/GrpHdr/MsgId', '#text': 'MsgId'}, {'@item': '/Document/*/DscrdInf/MsgId', '#text': 'MsgId'}, {'@item': '/Document/*/CdtTrfTxInf/PmtId/TxId', '#text': 'TxId'}, {'@item': '/Document/*/OrgnlGrpHdr/OrgnlMsgId', '#text': 'OrgnlMsgId'}, {'@item': '/Document/*/OrgnlGrpInfAndSts/OrgnlMsgId', '#text': 'OrgnlMsgId'}, {'@item': '/Document/*/DscrdInf/MsgRefId', '#text': 'MsgRefId'}, {'@item': '/Document/*/WdrwlRspnInf/OrgnlTxId', '#text': 'OrgnlTxId'}, {'@item': '/Document/SysStsNtfctn/SysStsInf/OrgnlSysSts', '#text': 'org_status'}, {'@item': '/Document/SysStsNtfctn/SysStsInf/CurSysSts', '#text': 'sys_status'}]}}
+# print(xmltodict.unparse({"protocol":x}))
 # p = {
 #     "protocol": {
 #         "dp.xml": [
@@ -1638,3 +1645,7 @@ print(xmltodict.unparse({"protocol":x}))
 # }
 # with open("cnccU_a.xml", "a+") as f:
 #     f.write(xmltodict.unparse(t, pretty=True)[38:] + "\n")
+# with open("cnccU.xml") as f:
+#     xml_format = format(f.read())
+#     x = xmltodict.parse(xml_format)
+#     print(x)

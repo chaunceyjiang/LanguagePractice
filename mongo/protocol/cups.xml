@@ -1,0 +1,61 @@
+<protocol>
+    <basic>
+        <name>cups</name>
+        <display_name>CUPS</display_name>
+    </basic>
+    <prepare>
+        <field op="as" value="10" type="int">max_span</field>
+        <field op="str_add" item1="PanHash" value=":">PanHash</field>
+        <field op="str_add" item1="PanHash" item2="F11">PanHash</field>
+        <field op="str_sub" item1="Lookup" start="0" end="9">lookup_short</field>
+    </prepare>
+    <normalizes>
+        <normalize name="tstid">
+            <field op="as" item1="PanHash"/>
+        </normalize>
+        <normalize name="transaction_id">
+            <field op="as" item1="TransId" />
+        </normalize>
+        <normalize name="ret_code">
+            <if op="eq" item1="RRA" value="resp">
+                <field op="as" item1="RespCode" />
+                <field op="as" item1="yyyyyy" />
+            </if>
+            <else>
+                <field op="as" value="null" />
+            </else>
+        </normalize>
+        <normalize name="trans_type_short">
+            <field op="lookup" file="trans_type_short.csv" item1="lookup_short" />
+        </normalize>
+        <normalize name="trans_type">
+            <field op="lookup" file="trans_type.csv" item1="Lookup" />
+        </normalize>
+        <normalize name="starts_with">
+            <field op="eq" item1="RRA" value="req"/>
+        </normalize>
+        <normalize name="ends_with">
+            <field op="eq" item1="RRA" value="resp"/>
+        </normalize>
+
+        <normalize name="trans_type">
+            <field op="notNull" item1="trans_type" result="trans_type"/>
+            <field op="notNull" item1="trans_type_short" result="trans_type_short"/>
+        </normalize>
+        <normalize name="is_success">
+            <field op="eq" item1="ret_code" value="00" />
+        </normalize>
+    </normalizes>
+    <traces>
+        <trace name="critical_keyword">
+            <field op="as" item1="PAN" />
+        </trace>
+        <trace name="fields">
+            <field op="as" item1="MsgType" />
+            <field op="as" item1="F3" />
+            <field op="as" item1="F25" />
+            <field op="as" item1="PanHash" />
+
+        </trace>
+    </traces>
+</protocol>

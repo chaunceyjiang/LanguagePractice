@@ -1,5 +1,6 @@
 package main
-/* 
+
+/*
 import (
 	"fmt"
 
@@ -17,7 +18,7 @@ func init()  {
 	if err != nil {
 		panic(err.Error())
 	}
-	
+
 }
 func NewTest() *Test {
 	test := &Test{
@@ -45,7 +46,7 @@ func main() {
 
 	// res := f.Call(argv, python.Py_None)
 	// fmt.Println(test.Py2Int(res))
-	
+
 	v := python.PyDict_New()
 	t:=python.PyDict_New()
 	python.PyDict_SetItem(t,test.Str2Py("1"),test.Int2Py(1))
@@ -65,14 +66,14 @@ func main() {
 	origList := python.PyTuple_New(2) //使用元组传递参数
 	python.PyTuple_SetItem(origList, 0, test.Str2Py(`"WUXI" if FlowId[3:6] == "195" else "SHANGHAI"`))
 	python.PyTuple_SetItem(origList, 1, v)
-	
+
 	res := r.Call(origList, python.Py_None)
 	fmt.Println(Py2Go(res))
 
 	origList = python.PyTuple_New(2) //使用元组传递参数
 	python.PyTuple_SetItem(origList, 0, test.Str2Py(`FlowId[11:21]`))
 	python.PyTuple_SetItem(origList, 1, v)
-	
+
 	res = r.Call(origList, python.Py_None)
 
 	exc, val, tb := python.PyErr_Fetch() //捕获异常
@@ -108,7 +109,7 @@ func Py2Go(res *python.PyObject) interface{} {
 		// TODO
 		panic("Dict Not implemented. ")
 	}
-	
+
 	return any
 } */
 /* package main

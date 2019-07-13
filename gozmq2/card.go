@@ -31,14 +31,14 @@ func addNode(root *BSTreeNode, value int) {
 		}else{
 			addNode(root.m_pLeft, value)
 		}
-		
+
 	} else {
 		if root.m_pRight==nil{
 			root.m_pRight = node
 		}else{
 			addNode(root.m_pRight, value)
 		}
-		
+
 	}
 }
 func printNode(root *BSTreeNode){

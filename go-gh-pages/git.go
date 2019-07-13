@@ -47,10 +47,16 @@ func Publish(basePath string, opt *Options, callback func(err error)) {
 	curRepo := NewGit()
 
 	// FIXME 下次再优化这里
+	log.Info("pull....")
 	curRepo.Pull(opts.Remote, opts.Branch)
-	_ = exec.Command("npm", "run", "build").Run()
+	log.Info("npm run build")
+	err := exec.Command("npm", "run", "build").Run()
+	if err!=nil{
+		log.Fatal(err)
+	}
 
 
+	log.Info("Publish ....")
 
 	if !exists(basePath) {
 		callback(errors.New(`'The "basePath" option must be an existing directory'`))
@@ -71,12 +77,13 @@ func Publish(basePath string, opt *Options, callback func(err error)) {
 	}
 	log.Info("Cleaning")
 	msg := g.LastCommit()
-	log.Info("Fetch " + opts.Remote)
-	g.Fetch(opts.Remote)
+	yesterdayMsg :=g.YesterdayCommit()
+	log.Info("Checkout releaseV5.1")
+	//g.Fetch(opts.Remote)
 	g.Checkout(opts.Remote, "releaseV5.1")
 	g.Clear()
 	if !opts.Add {
-		log.Info("Remoing files")
+		log.Info("Removing files")
 		g.Rm([]string{"."})
 	}
 	if u != nil {
@@ -87,14 +94,27 @@ func Publish(basePath string, opt *Options, callback func(err error)) {
 	if err := copyDir(filepath.Join(basePath, opts.Dest), newrepoUrl); err != nil {
 		log.Error(err)
 	}
+	log.Info("Adding files")
 	g.Add([]string{"."})
+	log.Info("Set User")
 	g.SetUser(u)
+	log.Info("Commit msg:"+msg)
 	g.Commit("release for commit:" + msg)
-
+	log.Info("Push releaseV5.1")
 	g.Push(opts.Remote, "releaseV5.1")
-	tokenurl := `https://oapi.dingtalk.com/robot/send?access_token=13d97d8f8d16f930f3305080594c5d6b7f73fea2989ed2b474164382e260caa45`
+	log.Info("Send message...")
+	tokenurl := `https://oapi.dingtalk.com/robot/send?access_token=3d97d8f8d16f930f3305080594c5d6b7f73fea2989ed2b474164382e260caa45`
 	client := &http.Client{}
-	body := Msg{"text", T{"release: "+msg}}
+
+
+
+
+
+
+
+
+
+	body := Msg{"text", T{"release: "+msg+"\n"+yesterdayMsg}}
 
 	buf := new(bytes.Buffer)
 	_ = json.NewEncoder(buf).Encode(body)

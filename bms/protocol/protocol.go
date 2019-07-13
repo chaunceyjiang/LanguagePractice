@@ -66,7 +66,10 @@ func (p ProtocolConfig) PrepareHandler(record map[string]interface{}) {
 		record[f.Text] = f.FieldHandler(record, p.ProtocolFileName)
 	}
 }
-
+func (p ProtocolConfig)Process(record map[string]interface{})  {
+	p.PrepareHandler(record)
+	p.NormalizesHandler(record)
+}
 func (f Attr) FieldHandler(record map[string]interface{}, opts ...interface{}) (r interface{}) {
 	defer func(r *interface{}) {
 		if err := recover(); err != nil {

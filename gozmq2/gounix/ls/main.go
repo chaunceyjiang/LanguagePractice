@@ -5,13 +5,17 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"os/user"
+	"strconv"
 	"strings"
+	"syscall"
 )
 
 const versionNumber = 0.1
 
 var version = flag.Bool("v", false, "output version information")
 var all = flag.Bool("a", false, "list all items beginning with '.'")
+var list = flag.Bool("l", true, ` use a long listing format`)
 
 func usage() {
 	fmt.Println("Usage:")
@@ -30,7 +34,7 @@ func main() {
 
 	var dir string
 	lenArgs := len(os.Args)
-	if lenArgs > 1 {
+	if lenArgs > 2 {
 		dir = os.Args[lenArgs-1]
 	} else {
 		dir = "."
@@ -45,6 +49,23 @@ func main() {
 		if !*all && strings.HasPrefix(f.Name(), ".") {
 			continue
 		}
-		fmt.Println(f.Name())
+
+		if *list {
+			u, _ := user.LookupId(strconv.FormatInt(int64(f.Sys().(*syscall.Stat_t).Uid), 10))
+			group, _ := user.LookupId(strconv.FormatInt(int64(f.Sys().(*syscall.Stat_t).Gid), 10))
+			fmt.Println(f.Mode().String(),
+				f.Sys().(*syscall.Stat_t).Nlink,
+				u.Username,
+				group.Username,
+				f.Sys().(*syscall.Stat_t).Blksize,
+				f.ModTime().Month(),
+				f.ModTime().Day(),
+				f.ModTime().Hour(),
+				f.Size(),
+				f.Name())
+		} else {
+			fmt.Println(f.Name())
+		}
+
 	}
 }

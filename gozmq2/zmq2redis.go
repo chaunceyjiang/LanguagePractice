@@ -52,5 +52,5 @@ func main() {
 	msgpack.Unmarshal(head, &msghead)
 
 	// fmt.Println(msgbody, msghead)
-	fmt.Printf("%v %v\n", msgbody,msghead)
+	fmt.Printf("%v %v\n", msgbody, msghead)
 }

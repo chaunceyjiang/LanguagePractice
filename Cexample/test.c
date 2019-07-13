@@ -14,6 +14,7 @@ int main()
             max = a[i];
         if (min > a[i])
             min = a[i];
+        
     }
     printf("%f\n", (sum - min - max) / 8.0);
     return 0;

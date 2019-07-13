@@ -103,7 +103,7 @@ func main() {
 	b:=bytes.NewBuffer(all)
 	m,_,_:=image.Decode(b)
 	jpeg.Encode(j,m , nil)
-	
+
 }
 
 func fill(seq, check, data []byte, l uint32) {
@@ -147,4 +147,4 @@ func checksum(seq, check, data []byte, l uint32) int {
 	fmt.Println(sum, check)
 	return bytes.Compare(sum, check)
 }
- */
+*/

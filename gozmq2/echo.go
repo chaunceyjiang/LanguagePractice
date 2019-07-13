@@ -1,9 +1,5 @@
 package main
 
-import (
-	"github.com/labstack/echo"
-	"github.com/labstack/echo/middleware"
-)
 //
 //var dbName = "choujiang.cb"
 //var f *os.File
@@ -44,19 +40,37 @@ import (
 //	json.Unmarshal(b,&j)
 //	return c.JSON(http.StatusOK, j)
 //}
-func main() {
-	// Echo instance
-	e := echo.New()
+//func addA(i *int) {
+//	*i = (*i) +1
+//}
+//func main() {
+//	// Echo instance
+//	var i = 1
+//
+//	addA(&i)
+//	fmt.Println(i)
+//	//e := echo.New()
+//	//
+//	//// Middleware
+//	//e.Use(middleware.Logger())
+//	//e.Use(middleware.Recover())
+//	//
+//	//// Routes
+//	////e.GET("/get_cj", hello2)
+//	////e.GET("/cjjg", hello)
+//	//e.File("/", "index.html")
+//	//e.Static("/", ".")
+//	//// Start server
+//	//e.Logger.Fatal(e.Start(":1323"))
+//}
 
-	// Middleware
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
-
-	// Routes
-	//e.GET("/get_cj", hello2)
-	//e.GET("/cjjg", hello)
-	e.File("/", "index.html")
-	e.Static("/", ".")
-	// Start server
-	e.Logger.Fatal(e.Start(":1323"))
-}
+//type S struct {
+//	name string
+//}
+//
+//func main() {
+//	m := map[string]S{"x": {"one"}}
+//	fmt.Println(m)
+//	fmt.Println(m["x"].name)
+//	//m["x"].name = "two"
+//}

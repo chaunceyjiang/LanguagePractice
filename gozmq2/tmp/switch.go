@@ -15,12 +15,12 @@ var logs *log.Logger
 
 func init() {
 	logs = log.New(os.Stdout, "", log.LUTC|log.Ltime|log.Lshortfile)
-	go func (){
+	go func() {
 		for {
-			logs.Println("============now====================",time.Now().Unix())
-			time.Sleep(10*time.Second)
+			logs.Println("============now====================", time.Now().Unix())
+			time.Sleep(10 * time.Second)
 		}
-		
+
 	}()
 }
 

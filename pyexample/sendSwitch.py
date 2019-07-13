@@ -1,6 +1,6 @@
 # coding: utf-8
 import msgpack,zmq,os,math,random,time
-endpoint = "tcp://192.168.2.111:5000"
+endpoint = "tcp://127.0.0.1:5000"
 
 PATH = "/home/chauncey/Desktop/tmp/"
 filePackList = []
@@ -40,6 +40,7 @@ def SendSwitch():
                     if head[3] == 3:
                         print body
                     socket.send_multipart([pack_msg(head),pack_msg(body)])
+                    time.sleep(1)
 listPack()
 SendSwitch()
 time.sleep(20)

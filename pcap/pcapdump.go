@@ -13,10 +13,10 @@ import (
 )
 
 //var iface = flag.String("i", "eth0", "Interface to read packets from")
-var fname = flag.String("r", "", "Filename to read from, overrides -i")
-//var snaplen = flag.Int("s", 65536, "Snap length (number of bytes max to read per packet")
-var tstype = flag.String("timestamp_type", "", "Type of timestamps to use")
-var promisc = flag.Bool("promisc", true, "Set promiscuous mode")
+//var fname = flag.String("r", "", "Filename to read from, overrides -i")
+////var snaplen = flag.Int("s", 65536, "Snap length (number of bytes max to read per packet")
+//var tstype = flag.String("timestamp_type", "", "Type of timestamps to use")
+//var promisc = flag.Bool("promisc", true, "Set promiscuous mode")
 
 func main() {
 	defer util.Run()()

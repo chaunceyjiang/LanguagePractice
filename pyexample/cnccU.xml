@@ -1,133 +1,40 @@
 <protocol>
     <basic>
-        <name>cnccU</name>
-        <display_name>人行清算中心U头报文</display_name>
-        <decodes>
-            <decode>
-                1827731058
-            </decode>
-            <decode>
-                1825566008
-            </decode>
-            <decode>
-                1832061158
-            </decode>
-        </decodes>
+        <name>cnccibps</name>
+        <display_name>人行清算中心大额系统</display_name>
     </basic>
     <prepare>
-        <field op="as" value="0">ret_code</field>
-        <field op="as" value="1">is_success</field>
-        <field op="as" value="120" type="int">max_span</field>
-        <field op="as" value="20" type="int">overtime_span</field>
-        <field op="as" value="60" type="int">statistics_span</field>
-        <field op="as" value="60" type="int">delay_span</field>
-        <field op="as" value="1" type="int">alert_threshold</field>
-        <field op="as" item1="CnccOrigReceiverSID">sys_type</field>
+        <field op="as" value="30" type="int">max_span</field>
         <field op="str_trim" item1="CnccMesgType">CnccMesgType</field>
         <field op="str_trim" item1="CnccMesgType">RRB</field>
-        <field op="str_trim" item1="CnccMesgID">MesgId</field>
-        <field op="str_trim" item1="CnccMesgRefID">MesgRefId</field>
-
-        <!-- 这里对CCPCId进行一些预处理操作 -->
-        <field op="str_sub" item1="CnccReserve" start="196" end="216">CCPCId</field>
-        <field op="str_sub" item1="CnccReserve" start="73" end="88">mbfe_sts</field>
-        <field op="str_sub" item1="CnccReserve" start="153" end="168">ccpc_cts</field>
-        <field op="str_sub" item1="CnccReserve" start="176" end="191">ccpc_sts</field>
-        <!-- 这个字段需要先将IP地址从int转化到标准形式 -->
-        <field op="str_sub" item1="DestIp" start="3" end="6"> sub_trans_type</field>
+        <field op="str_sub" start="0" end="8" item1="CnccMesgType">mesgtype</field>
+        <field op="str_sub" start="0" end="4" item1="CnccMesgType">sub_trans_type</field>
+        <field op="str_trim" item1="CnccMesgRefID">CnccMesgRefID</field>
     </prepare>
-
     <normalizes>
-        <normalize name="CnccOrigSender">
-            <if op="notNull" item1="CnccOrigSender">
-                <field op="str_trim" item1="CnccOrigSender" />
-                <field op="str_trim" item1="CnccOrigReceiver"/>
-                <field op="str_add" item1="CnccOrigReceiver" item2="CnccOrigReceiver"/>
-                <field op="str_sub" item1="CnccReserve" start="176" end="191" />
-                <field op="str_trim" item1="CnccOrigReceiver"/>
-                <field op="str_trim" item1="CnccOrigReceiver"/>
-            </if>
-            <if op="eq" item1="CnccOrigSender" item2="CnccOrigSender">
-                <field op="str_trim" item1="CnccOrigSender" />
-                <field op="str_trim" item1="CnccOrigReceiver"/>
-                <field op="str_add" item1="CnccOrigReceiver" item2="CnccOrigReceiver"/>
-                <field op="str_sub" item1="CnccReserve" start="176" end="191" />
-                <field op="str_trim" item1="CnccOrigReceiver"/>
-                <field op="str_trim" item1="CnccOrigReceiver"/>
-            </if>
-            <else>
-                <field op="as" value="--"/>
-                <field op="str_trim" item1="CnccOrigReceiver"/>
-                <field op="str_add" item1="CnccOrigReceiver" item2="CnccOrigReceiver"/>
-                <field op="str_sub" item1="CnccReserve" start="176" end="191" />
-                <field op="str_trim" item1="CnccOrigReceiver"/>
-                <field op="str_trim" item1="CnccOrigReceiver"/>
-            </else>
-        </normalize>
-
-        <normalize name="CnccOrigReceiver">
-            <if op="notNull" item1="CnccOrigReceiver">
-                <field op="str_trim" item1="CnccOrigReceiver"/>
-                <field op="str_add" item1="CnccOrigReceiver" item2="CnccOrigReceiver"/>
-                <field op="str_sub" item1="CnccReserve" start="176" end="191" />
-                <field op="str_trim" item1="CnccOrigReceiver"/>
-                <field op="str_trim" item1="CnccOrigReceiver"/>
-            </if>
-            <else>
-                <field op="as" value="--"/>
-            </else>
-        </normalize>
-
-        <normalize name="Receiver">
-            <field op="as" item1="CnccOrigReceiver" />
-        </normalize>
-
-        <normalize name="Sender">
-            <field op="as" item1="CnccOrigSender" />
-        </normalize>
-
-
         <normalize name="transaction_id">
-            <if op="eq" item1="RRB" value="resp">
-                <field op="as" item1="MesgRefId"/>
+            <if op="in" item1="RRB" value="req,notify">
+                <field op="notNull" item1="MsgId" result="MsgId"/>
+                <field op="notNull" item1="CnccMesgID" result="CnccMesgID"/>
+                <field op="notNull" item1="FlowId" result="FlowId"/>
             </if>
             <else>
-                <field op="as" item1="MesgId" />
+                <field op="notNull" item1="OrgnlMsgId" result="OrgnlMsgId"/>
+                <field op="notNull" item1="CnccMesgRefID" result="CnccMesgRefID"/>
+                <field op="notNull" item1="FlowId" result="FlowId"/>
             </else>
         </normalize>
 
-        <normalize name="sendTime">
-            <if op="notNull" item1="sendtime">
-                <field op="as" item1="sendtime" />
-            </if>
-            <if op="and" item1="CnccOrigSendDate" item2="CnccOrigSendTime">
-                <field op="str_add" item1="CnccOrigSendDate" item2="CnccOrigSendTime"/>
-            </if>
-            <else>
-                <field op="as" value="--" />
-            </else>
+        <normalize name="status">
+            <field op="lookup" file="trans_type.csv" item1="trans_type" />
         </normalize>
 
-        <normalize name="sub_trans_type">
-            <if op="eq" item1="sub_trans_type" value="195">
-                <field op="as" value="WUXI" />
-            </if>
-            <else>
-                <field op="as" value="SHANGHAI" />
-            </else>
+        <normalize name="trans_type">
+            <field op="lookup" file="status.csv" item1="status" />
         </normalize>
-
-
-
-        <normalize name="CCPCId">
-            <if op="notNull" item1="CCPCId">
-                <field op="str_trim" item1="CCPCId" />
-            </if>
-            <else>
-                <field op="as" value="" />
-            </else>
+        <normalize name="RRB">
+            <field op="lookup" file="mesgtype2rra.csv" item1="RRB" />
         </normalize>
-
         <normalize name="RRA">
             <field op="as" item1="RRB" />
         </normalize>
@@ -140,23 +47,4 @@
             <field op="eq" item1="RRA" value="notify"/>
         </normalize>
     </normalizes>
-    <traces>
-        <trace name="critical_keyword">
-            <field op="as" item1="transaction_id" />
-        </trace>
-        <trace name="fields">
-            <field op="as" item1="status" />
-            <field op="as" item1="TxId" />
-        </trace>
-    </traces>
-    <trace_disp>
-        <field op="disp" item1="status">业务状态</field>
-        <field op="disp" item1="TxId">明细标识号</field>
-        <!-- <field op="disp" item1="OrgnlMsgId">原报文标识号</field> -->
-    </trace_disp>
-
-    <dimensions>
-        <dimension name="trans_type" display_name="业务类型" csv_file="trans_type.csv"  />
-        <dimension name="sub_trans_type" display_name="业务类型" csv_file="sub_trans_type.csv" />
-    </dimensions>
 </protocol>

@@ -35,10 +35,10 @@ func main() {
 
 	b.SetAsClickButton("a", "b")
 	m := menu.Menu{Buttons: []menu.Button{{Name: "抽奖"}}, MenuId: 1}
-	t1,_:=time.Parse("2006-01-02", "2013-10-05")
-	t2,_:=time.Parse("2006-01-02", "2018-10-05")
-	t:=datacube.NewRequest(t1,t2)
-	fmt.Println(datacube.GetUserSummary(wechatClient,t))
+	t1, _ := time.Parse("2006-01-02", "2013-10-05")
+	t2, _ := time.Parse("2006-01-02", "2018-10-05")
+	t := datacube.NewRequest(t1, t2)
+	fmt.Println(datacube.GetUserSummary(wechatClient, t))
 	fmt.Println(menu.Create(wechatClient, &m))
 
 }

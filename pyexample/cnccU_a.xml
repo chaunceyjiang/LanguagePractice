@@ -1,41 +1,27 @@
+<protocol id="xml" baseProtocol="tcp">
+  <layerProperty>
+    <!--该属性用于指定xml的payload偏移值-->
+    <payloadOffset>76</payloadOffset>
+    <!--该属性用于指定payloadoffset的字符串长度和类型-->
+    <wrapLengthType>ascii8dec</wrapLengthType>
+    <!--该属性用于指定wrapLengthType的偏移值-->
+    <wrapLengthOffset>0</wrapLengthOffset>
+    <!--该属性用于指定wrapLength和paddinglength的关系-->
+    <wrapLengthBiasSize>68</wrapLengthBiasSize>
+  </layerProperty>
 
-<protocol id="tcp" baseProtocol="">
-	<property>
-		<attribute key="forceCheckPayload" value="true" type="Boolean"></attribute>
-	</property>
-	<recordField allItem="false" template="xpath">
-		<field item="/Document/*/TxInfAndSts/StsId">StsId</field>
-		<field item="/Document/*/NPCPrcInf/PrcSts">PrcSts</field>
-		<field item="/Document/*/RspnInf/PrcCd">PrcCd</field>
-		<field item="/Document/*/DscrdInf/PrcCd">PrcCd</field>
-		<field item="/Document/*/CdtTrfTxInf/PmtTpInf/*/Prtry">prtry1</field>
-		<field item="/Document/*/GrpHdr/MsgId">MsgId</field>
-		<field item="/Document/*/DscrdInf/MsgId">MsgId</field>
-		<field item="/Document/*/CdtTrfTxInf/PmtId/TxId">TxId</field>
-		<field item="/Document/*/OrgnlGrpHdr/OrgnlMsgId">OrgnlMsgId</field>
-		<field item="/Document/*/OrgnlGrpInfAndSts/OrgnlMsgId">OrgnlMsgId</field>
-		<field item="/Document/*/DscrdInf/MsgRefId">MsgRefId</field>
-		<field item="/Document/*/WdrwlRspnInf/OrgnlTxId">OrgnlTxId</field>
-		<field item="/Document/SysStsNtfctn/SysStsInf/OrgnlSysSts">org_status</field>
-		<field item="/Document/SysStsNtfctn/SysStsInf/CurSysSts">sys_status</field>
-	</recordField>
-</protocol>
+ <recordField template="xpath" allItem="false">
+   <field item="/ECIF/HEAD/SYSCODE">sysCode</field>
+   <field item="/ECIF/HEAD/ACTCODE">actCode</field>
+   <field item="/ECIF/HEAD/SERIAL">serialNo</field>
+   <field item="/ECIF/HEAD/BRANCHID">branchId</field>
+   <field item="/ECIF/HEAD/USERID">userId</field>
+   <field item="/ECIF/HEAD/ATHERID">AuthId</field>
 
-<protocol id="xml" baseProtocol="cncc 2g">
-	<recordField allItem="false" template="xpath">
-		<field item="/Document/*/TxInfAndSts/StsId">StsId</field>
-		<field item="/Document/*/NPCPrcInf/PrcSts">PrcSts</field>
-		<field item="/Document/*/RspnInf/PrcCd">PrcCd</field>
-		<field item="/Document/*/DscrdInf/PrcCd">PrcCd</field>
-		<field item="/Document/*/CdtTrfTxInf/PmtTpInf/*/Prtry">prtry1</field>
-		<field item="/Document/*/GrpHdr/MsgId">MsgId</field>
-		<field item="/Document/*/DscrdInf/MsgId">MsgId</field>
-		<field item="/Document/*/CdtTrfTxInf/PmtId/TxId">TxId</field>
-		<field item="/Document/*/OrgnlGrpHdr/OrgnlMsgId">OrgnlMsgId</field>
-		<field item="/Document/*/OrgnlGrpInfAndSts/OrgnlMsgId">OrgnlMsgId</field>
-		<field item="/Document/*/DscrdInf/MsgRefId">MsgRefId</field>
-		<field item="/Document/*/WdrwlRspnInf/OrgnlTxId">OrgnlTxId</field>
-		<field item="/Document/SysStsNtfctn/SysStsInf/OrgnlSysSts">org_status</field>
-		<field item="/Document/SysStsNtfctn/SysStsInf/CurSysSts">sys_status</field>
-	</recordField>
+   <field item="/ECIF/HEAD/INFONUM">clientNum</field>
+   <field item="/ECIF/HEAD/RETURNCODE">returnCode</field>
+   <field item="/ECIF/HEAD/RETURNMSG">returnMsg</field>
+   <field item="/ECIF/HEAD/ERRMSG">errMsg</field>
+   <field item="/ECIF/BODY/INFO/CHANNEL_TYPE">channelID</field>
+  </recordField>
 </protocol>

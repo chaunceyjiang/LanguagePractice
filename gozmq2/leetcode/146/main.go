@@ -40,10 +40,10 @@ func (this *LRUCache) Get(key int) int {
 		return -1
 	}
 	tailNode = v.node.prev
-	if v.node.prev !=nil{
+	if v.node.prev != nil {
 		v.node.prev.next = v.node.next
 	}
-	if v.node.next !=nil{
+	if v.node.next != nil {
 		v.node.next.prev = v.node.prev
 	}
 
@@ -51,14 +51,14 @@ func (this *LRUCache) Get(key int) int {
 	v.node.next = this.head
 	this.head = v.node
 	v.node.prev = nil
-	if this.tail == this.head && tailNode!=nil{
+	if this.tail == this.head && tailNode != nil {
 		this.tail = tailNode
 	}
 	return v.value
 }
 
 func (this *LRUCache) Put(key int, value int) {
-	if _,ok:=this.cache[key];!ok{
+	if _, ok := this.cache[key]; !ok {
 		this.cacheCap++
 		if this.cacheCap > this.capacity {
 			delNode := this.tail
@@ -75,10 +75,10 @@ func (this *LRUCache) Put(key int, value int) {
 	}
 	if this.head == nil {
 		this.head = node
-	}else {
-		node.next=this.head
-		this.head.prev=node
-		this.head=node
+	} else {
+		node.next = this.head
+		this.head.prev = node
+		this.head = node
 	}
 	if this.tail == nil {
 		this.tail = node
@@ -104,19 +104,18 @@ func main() {
 	//param_1 =obj.Get(2)
 	//fmt.Println(param_1)
 	obj.Put(2, 6)
-	obj.Put(1,1)
-	param_1 =obj.Get(1)
+	obj.Put(1, 1)
+	param_1 = obj.Get(1)
 	fmt.Println(param_1)
 
-	obj.Put(2,3)
-	obj.Put(4,1)
-	param_1 =obj.Get(1)
+	obj.Put(2, 3)
+	obj.Put(4, 1)
+	param_1 = obj.Get(1)
 	fmt.Println(param_1)
 
 	//obj.Put(4,4)
 
-
-	param_1 =obj.Get(2)
+	param_1 = obj.Get(2)
 	fmt.Println(param_1)
 
 	//param_1 =obj.Get(3)

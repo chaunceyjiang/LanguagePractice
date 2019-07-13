@@ -1,5 +1,6 @@
 package main
-/* 
+
+/*
 import (
 	"bufio"
 	"fmt"
@@ -24,4 +25,4 @@ func main() {
 		fmt.Printf("%d", data)
 	}
 }
- */
+*/

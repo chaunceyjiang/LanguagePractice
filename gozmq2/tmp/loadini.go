@@ -1,5 +1,6 @@
 package main
-/* 
+
+/*
 import (
 	"fmt"
 	"log"
@@ -13,4 +14,4 @@ func main() {
 	}
 	fmt.Printf("basic :%s",cfg.Section("basic").Key("name").String())
 }
- */
+*/

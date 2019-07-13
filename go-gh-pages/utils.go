@@ -21,6 +21,7 @@ type U struct {
 	Name  string
 	Email string
 }
+
 type Options struct {
 	Remote   string
 	Depth    int
@@ -44,12 +45,6 @@ func (g *Git) exec(args ...string) {
 	}
 	b, err := exec.Command(g.Cmd, args...).CombinedOutput()
 	g.Err = err
-	if g.Err != nil {
-		if len(b) > 0 {
-			log.Warn(string(b), g.Err)
-		}
-
-	}
 	g.Output = string(b)
 }
 func (g *Git) Init() {
@@ -83,24 +78,19 @@ func (g *Git) Fetch(remote string) {
 	g.exec("-c", " http.sslVerify=false", "fetch", remote)
 }
 func (g Git) Checkout(remote, branch string) {
-	treeish := remote + "/" + branch
-	g.exec("ls-remote", "--exit-code", ".", treeish)
-	if ee, ok := g.Err.(*exec.ExitError); ok {
-		if ee.ExitCode() == 2 {
-			g.exec("checkout", "--orphan", branch)
-		} else {
-			g.exec("checkout", branch)
-			g.Clear()
-			g.Reset(remote, branch)
-		}
-	} else {
-		g.exec("checkout", "--orphan", branch)
+
+	g.exec("checkout", "--orphan", branch)
+
+	if g.Err != nil {
+		log.Warn(g.Err)
 	}
 }
 func (g *Git) Push(remote, branch string) {
 	g.DeleteReomoteBranch(remote, branch)
 	g.exec("-c", "http.sslVerify=false", "push", "--tags", remote, branch)
-
+	if g.Err != nil {
+		log.Warn(g.Err)
+	}
 }
 
 func (g *Git) getRemoteUrl(remote string) string {
@@ -143,7 +133,10 @@ func (g Git) Clone(repo, dir, branch string, options *Options) *Git {
 		return gg
 	}
 }
-
+func (g *Git)YesterdayCommit() string {
+	g.exec("log","--after=yesterday")
+	return g.Output
+}
 func (g Git) LastCommit() string {
 	g.exec("rev-parse", "HEAD")
 	return g.Output
