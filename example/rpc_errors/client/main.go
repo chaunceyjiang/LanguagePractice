@@ -19,15 +19,13 @@
 package main
 
 import (
-	"log"
-	"os"
-	"time"
-
 	"golang.org/x/net/context"
 	epb "google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc"
 	pb "google.golang.org/grpc/examples/helloworld/helloworld"
 	"google.golang.org/grpc/status"
+	"log"
+	"os"
 )
 
 func main() {
@@ -43,7 +41,7 @@ func main() {
 	}()
 	c := pb.NewGreeterClient(conn)
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	r, err := c.SayHello(ctx, &pb.HelloRequest{Name: "world"})
 	if err != nil {
