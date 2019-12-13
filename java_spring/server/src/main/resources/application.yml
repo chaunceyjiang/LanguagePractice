@@ -1,8 +1,8 @@
 eureka:
   client:
     serviceUrl: #注册中心的注册地址
-      defaultZone: http://127.0.0.1:9999/eureka/
-    enabled: false
+      defaultZone: http://127.0.0.1:8761/eurekas/
+#    enabled: false
 
 server:
   port: 8081  #服务端口号

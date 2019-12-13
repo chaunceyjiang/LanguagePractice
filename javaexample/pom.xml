@@ -20,7 +20,16 @@
         <artifactId>mongodb-driver</artifactId>
         <version>3.6.3</version>
     </dependency>
-
+    <dependency>
+        <groupId>org.apache.activemq</groupId>
+        <artifactId>activemq-all</artifactId>
+        <version>5.11.2</version>
+    </dependency>
+    <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>fastjson</artifactId>
+        <version>1.2.61</version>
+    </dependency>
 </dependencies>
 
 <properties>

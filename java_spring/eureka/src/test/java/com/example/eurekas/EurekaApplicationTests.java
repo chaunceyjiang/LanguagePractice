@@ -1,4 +1,4 @@
-package com.example.eureka;
+package com.example.eurekas;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
