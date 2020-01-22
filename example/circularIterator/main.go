@@ -137,6 +137,9 @@ func NewCoordinator() *Coordinator {
 	return &c
 }
 
+
+// https://juejin.im/post/5cd4cd71f265da039f0f2be2
+// 基于环状队列和迭代器实现任务RR分配策略
 func main() {
 	coordinator := NewCoordinator()
 	for i := 0; i < 10; i++ {
