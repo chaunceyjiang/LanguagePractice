@@ -13,14 +13,13 @@ import (
 
 var logs *log.Logger
 
+var ticker = time.NewTicker(time.Second * 10)
 func init() {
 	logs = log.New(os.Stdout, "", log.LUTC|log.Ltime|log.Lshortfile)
 	go func() {
-		for {
+		for t := range ticker.C{
 			logs.Println("============now====================", time.Now().Unix())
-			time.Sleep(10 * time.Second)
 		}
-
 	}()
 }
 
@@ -44,6 +43,13 @@ func main() {
 	var head []byte
 	var msghead []interface{}
 	// var msgbody map[string]interface{}
+	ticker2 := time.NewTicker(time.Second * diffValue)
+
+	go func(){
+		for t := range ticker2.C{
+			fmt.Printf("%d head: %v ", t, msghead)
+		}
+	}()
 	for {
 		parts, err := recvSocket.RecvMultipart(0)
 		if err != nil {
@@ -55,10 +61,10 @@ func main() {
 		dec := codec.NewDecoderBytes(head, mh)
 		dec.Decode(&msghead)
 		t := time.Now().Unix()
-		if uint64(t)-msghead[0].(uint64) >= uint64(diffValue) {
-			fmt.Printf("%d head: %v ", t, msghead)
-			fmt.Printf(" diff: %d \n", uint64(t)-msghead[0].(uint64))
-		}
+		// if uint64(t)-msghead[0].(uint64) >= uint64(diffValue) {
+		// 	fmt.Printf("%d head: %v ", t, msghead)
+		// 	fmt.Printf(" diff: %d \n", uint64(t)-msghead[0].(uint64))
+		// }
 		// body = parts[1]
 		// dec = codec.NewDecoderBytes(body, mh)
 		// dec.Decode(&msgbody)

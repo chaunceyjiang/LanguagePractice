@@ -27,14 +27,14 @@ func main() {
 		flag.PrintDefaults()
 		os.Exit(1)
 	}
-	recv_path := fmt.Sprintf("/dev/shm/%s_cmd_recv", *eth)
-	send_path := fmt.Sprintf("/dev/shm/%s_cmd_send", *eth)
-	data_path := fmt.Sprintf("/dev/shm/%s_data", *eth)
+	recv_path := fmt.Sprintf("//home/chauncey/Desktop/%s/read", *eth)
+	send_path := fmt.Sprintf("/home/chauncey/Desktop/%s/write", *eth)
+	data_path := fmt.Sprintf("/home/chauncey/Desktop/%s/data", *eth)
 	if !Exists(recv_path, send_path, data_path) {
 		log.Println(*eth, "mmap不存在")
 		os.Exit(1)
 	}
-	file, size := openfile(recv_path)
+	file, size := openfile(send_path)
 	m, err := mMap(file, size)
 	if err != nil {
 		log.Fatalln(err)
@@ -93,6 +93,7 @@ func openfile(filename string) (*os.File, int64) {
 func Exists(paths ...string) bool {
 	var exist bool
 	for _, path := range paths {
+		log.Println(path)
 		_, err := os.Stat(path) //os.Stat获取文件信息
 		if err != nil {
 			if os.IsExist(err) {
