@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"strings"
 	"sync"
+	"time"
 )
 
 // 基于消息队列与2PC配合延迟队列完成消息事务
@@ -117,7 +119,7 @@ func (w *Worker) onTaskClear(event *Event) {
 }
 
 func (w *Worker) onTaskCommit(event *Event) {
-	tasks, found := w.deferredTaskUpdates[event.Name]
+	_, found := w.deferredTaskUpdates[event.Name]
 	if !found {
 		return
 	}
@@ -141,5 +143,17 @@ func (w *Worker) onEvent(event *Event) {
 }
 
 func main() {
+	wg:=sync.WaitGroup{}
+	wg.Add(1)
 
+	for i:=0;i<10;i++{
+		go func() {
+			wg.Wait()
+			fmt.Println("执行....")
+		}()
+	}
+	time.Sleep(1*time.Second)
+	wg.Done()
+	time.Sleep(2*time.Second)
+	wg.Wait()
 }
